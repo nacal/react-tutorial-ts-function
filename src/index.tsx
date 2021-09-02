@@ -26,7 +26,12 @@ const calculateWinner = (squares: SquaresType) => {
   return null;
 }
 
-function Square(props) {
+interface SquareType {
+  value: string | null;
+  onClick: () => void;
+}
+
+const Square = (props: SquareType) => {
   return (
     <button className="square" onClick={props.onClick}>
       {props.value}
