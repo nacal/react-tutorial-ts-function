@@ -4,6 +4,10 @@ import "./index.css";
 
 type SquaresType = (string | null)[];
 
+interface History {
+  squares: SquaresType;
+}
+
 const calculateWinner = (squares: SquaresType) => {
   const lines = [
     [0, 1, 2],
@@ -22,35 +26,30 @@ const calculateWinner = (squares: SquaresType) => {
     }
   }
   return null;
-}
+};
 
-interface SquareType {
+interface SquareProps {
   value: string | null;
   onClick: () => void;
 }
 
-const Square = (props: SquareType) => {
+const Square: React.VFC<SquareProps> = (props) => {
   return (
     <button className="square" onClick={props.onClick}>
       {props.value}
     </button>
   );
-}
+};
 
 interface BoardProps {
   squares: SquaresType;
   onClick: (i: number) => void;
 }
 
-const Board = (props: BoardProps) => {
+const Board: React.VFC<BoardProps> = (props) => {
   const renderSquare = (i: number) => {
-    return (
-      <Square
-        value={props.squares[i]}
-        onClick={() => props.onClick(i)}
-      />
-    );
-  }
+    return <Square value={props.squares[i]} onClick={() => props.onClick(i)} />;
+  };
 
   return (
     <div>
@@ -71,32 +70,28 @@ const Board = (props: BoardProps) => {
       </div>
     </div>
   );
+};
 
-}
-
-const Game = () => {
-  interface History {
-    squares: SquaresType;
-  }
-
-  const [stepNumber, setStepNumber] = useState(0);
-  const [xIsNext, setXIsNext] = useState(true);
+const Game: React.VFC = () => {
   const [history, setHistory] = useState<History[]>([
     { squares: Array(9).fill(null) }
   ]);
+  const [stepNumber, setStepNumber] = useState(0);
+  const [xIsNext, setXIsNext] = useState(true);
 
   const handleClick = (i: number) => {
     const historyCurrent = history.slice(0, stepNumber + 1);
-    const current = history[history.length - 1];
+    const current = historyCurrent[historyCurrent.length - 1];
     const squares = current.squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
-      return;
-    }
+
+    if (calculateWinner(squares) || squares[i]) return;
+
     squares[i] = xIsNext ? "X" : "O";
-    setHistory(historyCurrent.concat([{ squares: squares }]));
+
+    setHistory([...historyCurrent, { squares }]);
     setStepNumber(historyCurrent.length);
     setXIsNext(!xIsNext);
-  }
+  };
 
   const jumpTo = (step: number) => {
     setStepNumber(step);
@@ -131,8 +126,6 @@ const Game = () => {
       </div>
     </div>
   );
-}
-
-// ========================================
+};
 
 ReactDOM.render(<Game />, document.getElementById("root"));
