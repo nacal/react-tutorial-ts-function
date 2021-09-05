@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, memo } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 
@@ -33,20 +33,20 @@ interface SquareProps {
   onClick: () => void;
 }
 
-const Square = (props: SquareProps) => {
+const Square = memo((props: SquareProps) => {
   return (
     <button className="square" onClick={props.onClick}>
       {props.value}
     </button>
   );
-};
+});
 
 interface BoardProps {
   squares: SquaresType;
   onClick: (i: number) => void;
 }
 
-const Board = (props: BoardProps) => {
+const Board = memo((props: BoardProps) => {
   const renderSquare = (i: number) => {
     return <Square value={props.squares[i]} onClick={() => props.onClick(i)} />;
   };
@@ -70,7 +70,7 @@ const Board = (props: BoardProps) => {
       </div>
     </div>
   );
-};
+});
 
 const Game = () => {
   interface State {
