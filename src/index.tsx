@@ -33,7 +33,7 @@ interface SquareProps {
   onClick: () => void;
 }
 
-const Square: React.VFC<SquareProps> = (props) => {
+const Square = (props: SquareProps) => {
   return (
     <button className="square" onClick={props.onClick}>
       {props.value}
@@ -46,7 +46,7 @@ interface BoardProps {
   onClick: (i: number) => void;
 }
 
-const Board: React.VFC<BoardProps> = (props) => {
+const Board = (props: BoardProps) => {
   const renderSquare = (i: number) => {
     return <Square value={props.squares[i]} onClick={() => props.onClick(i)} />;
   };
@@ -72,7 +72,7 @@ const Board: React.VFC<BoardProps> = (props) => {
   );
 };
 
-const Game: React.VFC = () => {
+const Game = () => {
   const [history, setHistory] = useState<History[]>([
     { squares: Array(9).fill(null) }
   ]);
