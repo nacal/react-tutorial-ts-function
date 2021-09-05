@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, memo } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 
@@ -33,20 +33,20 @@ interface SquareProps {
   onClick: () => void;
 }
 
-const Square = (props: SquareProps) => {
+const Square = memo((props: SquareProps) => {
   return (
     <button className="square" onClick={props.onClick}>
       {props.value}
     </button>
   );
-};
+});
 
 interface BoardProps {
   squares: SquaresType;
   onClick: (i: number) => void;
 }
 
-const Board = (props: BoardProps) => {
+const Board = memo((props: BoardProps) => {
   const renderSquare = (i: number) => {
     return <Square value={props.squares[i]} onClick={() => props.onClick(i)} />;
   };
@@ -70,31 +70,31 @@ const Board = (props: BoardProps) => {
       </div>
     </div>
   );
-};
+});
+
+interface State {
+  history: History[];
+  stepNumber: number;
+  xIsNext: boolean;
+}
+
+type Action =
+  | {
+    type: 'click';
+    value: number;
+  }
+  | {
+    type: 'jump';
+    value: number;
+  };
+
+const initialState: State = {
+  history: [{ squares: Array(9).fill(null) }],
+  stepNumber: 0,
+  xIsNext: true,
+}
 
 const Game = () => {
-  interface State {
-    history: History[];
-    stepNumber: number;
-    xIsNext: boolean;
-  }
-
-  type Action =
-    | {
-      type: 'click';
-      value: number;
-    }
-    | {
-      type: 'jump';
-      value: number;
-    };
-
-  const initialState: State = {
-    history: [{ squares: Array(9).fill(null) }],
-    stepNumber: 0,
-    xIsNext: true,
-  }
-
   const reducer = (state: State, action: Action): State => {
     switch (action.type) {
       case 'click': {
