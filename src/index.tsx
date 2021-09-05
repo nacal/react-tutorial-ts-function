@@ -72,29 +72,29 @@ const Board = memo((props: BoardProps) => {
   );
 });
 
+interface State {
+  history: History[];
+  stepNumber: number;
+  xIsNext: boolean;
+}
+
+type Action =
+  | {
+    type: 'click';
+    value: number;
+  }
+  | {
+    type: 'jump';
+    value: number;
+  };
+
+const initialState: State = {
+  history: [{ squares: Array(9).fill(null) }],
+  stepNumber: 0,
+  xIsNext: true,
+}
+
 const Game = () => {
-  interface State {
-    history: History[];
-    stepNumber: number;
-    xIsNext: boolean;
-  }
-
-  type Action =
-    | {
-      type: 'click';
-      value: number;
-    }
-    | {
-      type: 'jump';
-      value: number;
-    };
-
-  const initialState: State = {
-    history: [{ squares: Array(9).fill(null) }],
-    stepNumber: 0,
-    xIsNext: true,
-  }
-
   const reducer = (state: State, action: Action): State => {
     switch (action.type) {
       case 'click': {
