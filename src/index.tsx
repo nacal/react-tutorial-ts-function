@@ -31,11 +31,12 @@ const calculateWinner = (squares: SquaresType) => {
 interface SquareProps {
   value: string | null;
   onClick: () => void;
+  id: number;
 }
 
 const Square = memo((props: SquareProps) => {
   return (
-    <button className="square" onClick={props.onClick}>
+    <button data-e2e={`button-${props.id}`} className="square" onClick={props.onClick}>
       {props.value}
     </button>
   );
@@ -48,7 +49,7 @@ interface BoardProps {
 
 const Board = memo((props: BoardProps) => {
   const renderSquare = (i: number) => {
-    return <Square value={props.squares[i]} onClick={() => props.onClick(i)} />;
+    return <Square id={i} value={props.squares[i]} onClick={() => props.onClick(i)} />;
   };
 
   return (
@@ -158,7 +159,7 @@ const Game = () => {
         <Board squares={current.squares} onClick={(i) => handleClick(i)} />
       </div>
       <div className="game-info">
-        <div>{status}</div>
+        <div data-e2e="status">{status}</div>
         <ol>{moves}</ol>
       </div>
     </div>
