@@ -17,9 +17,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env NODE_ENV=\"development\" webpack serve",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cypress run --browser chrome --spec=./cypress/integration/App.spec.ts",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
