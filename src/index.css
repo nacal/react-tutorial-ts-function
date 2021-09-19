@@ -48,3 +48,7 @@ ol, ul {
 .game-info {
   margin-left: 20px;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
