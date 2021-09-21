@@ -4,7 +4,9 @@ import Game from "./Game"
 
 const Index = () => {
   return (
-    <Game />
+    <main className="h-screen bg-gray-500">
+      <Game />
+    </main>
   )
 }
 

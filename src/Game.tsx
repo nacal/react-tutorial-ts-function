@@ -101,7 +101,7 @@ const Game = () => {
     const desc = move ? `Go to move #${move}` : "Go to game start";
     return (
       <li key={move}>
-        <button onClick={() => jumpTo(move)}>{desc}</button>
+        <button onClick={() => jumpTo(move)} className="text-white font-light">{desc}</button>
       </li>
     );
   });
@@ -111,12 +111,10 @@ const Game = () => {
     : `Next player: ${state.xIsNext ? "X" : "O"}`;
 
   return (
-    <div className="game">
-      <div className="game-board">
-        <Board squares={current.squares} onClick={(i) => handleClick(i)} />
-      </div>
-      <div className="game-info">
-        <div data-e2e="status">{status}</div>
+    <div className="h-full flex flex-col items-center justify-center">
+      <Board squares={current.squares} onClick={(i) => handleClick(i)} />
+      <div className="fixed right-4 top-2">
+        <div data-e2e="status" className="text-white text-xl">{status}</div>
         <ol>{moves}</ol>
       </div>
     </div>
