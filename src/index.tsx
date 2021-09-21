@@ -1,8 +1,9 @@
-import React, { useReducer, memo } from "react";
+import React, { useReducer } from "react";
 import ReactDOM from "react-dom";
+import Board from "./Board"
 import "./index.css";
 
-type SquaresType = (string | null)[];
+export type SquaresType = (string | null)[];
 
 interface History {
   squares: SquaresType;
@@ -27,51 +28,6 @@ const calculateWinner = (squares: SquaresType) => {
   }
   return null;
 };
-
-interface SquareProps {
-  value: string | null;
-  onClick: () => void;
-  id: number;
-}
-
-const Square = memo((props: SquareProps) => {
-  return (
-    <button data-e2e={`button-${props.id}`} className="square" onClick={props.onClick}>
-      {props.value}
-    </button>
-  );
-});
-
-interface BoardProps {
-  squares: SquaresType;
-  onClick: (i: number) => void;
-}
-
-const Board = memo((props: BoardProps) => {
-  const renderSquare = (i: number) => {
-    return <Square id={i} value={props.squares[i]} onClick={() => props.onClick(i)} />;
-  };
-
-  return (
-    <div>
-      <div className="board-row">
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
-      </div>
-      <div className="board-row">
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
-      </div>
-      <div className="board-row">
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
-      </div>
-    </div>
-  );
-});
 
 interface State {
   history: History[];
