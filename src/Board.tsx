@@ -1,6 +1,6 @@
 import { memo } from "react";
 import Square from "./Square";
-import { SquaresType } from "./index"
+import { SquaresType } from "./Game"
 import "./index.css";
 
 interface BoardProps {
