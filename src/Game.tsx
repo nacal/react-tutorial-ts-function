@@ -19,12 +19,14 @@ const calculateWinner = (squares: SquaresType) => {
     [0, 4, 8],
     [2, 4, 6]
   ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
+
+  lines.map((lines) => {
+    const [a, b, c] = lines;
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
     }
-  }
+  })
+
   return null;
 };
 
